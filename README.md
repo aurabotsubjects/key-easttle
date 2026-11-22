@@ -61,3 +61,13 @@ writekeys/
 - Print views: `booklet.html?book=launch&year=5` and `booklet.html?book=launch-teacher&year=5`. A single card: `booklet.html?book=launch&key=IDa`.
 - Content lives in `data/keys-catchup1.js` and `data/keys-catchup2.js` (extra fields: `warm`, `bank`, `frames`, `write`). Edit, then regenerate the PDFs.
 - The app counts 57 keys (45 main plus 12 Launch Pad); the printed main booklets still say 45.
+
+## Printing a booklet for one student
+
+Teacher: open a student (Teacher > Class > click the name). The "Print booklets for …" card has buttons for their Year Student Booklet, the Launch Pad catch-up pack, and the other year. Each one:
+- leaves out every key the student has already achieved (credited from the e-asTTle test or earned),
+- shades those keys on the passport and pre-fills 3 of 5 dots where the test gave partial credit,
+- shows their e-asTTle scores on the starting-points page,
+- prints their name on the cover and in the footer of every page (the footer name is bold, 9pt).
+It opens the print box straight away; choose **Save as PDF** to download it. Students can do the same from their own Booklets screen. Link format: `booklet.html?book=student&year=5&name=Mere&st=ID1:5,ID2:3&sc=ideas:4&auto=1`.
+The Booklets screen also has **Download PDF** buttons for the standard (whole) booklets.

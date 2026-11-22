@@ -81,22 +81,26 @@ table.ev { width: 100%; border-collapse: collapse; font-size: 8.5pt; } table.ev 
 <script src="data/keys-catchup2.js"></script>
 <script>
 (function () {
-  var WK = window.WK, q = new URLSearchParams(location.search), bk = q.get('book') || 'student', LP = bk === 'launch' || bk === 'launch-teacher', book = (bk === 'teacher' || bk === 'launch-teacher') ? 'teacher' : 'student', yr = q.get('year') === '6' ? 6 : 5, only = q.get('key');
+  var WK = window.WK, q = new URLSearchParams(location.search), bk = q.get('book') || 'student', LP = bk === 'launch' || bk === 'launch-teacher', book = (bk === 'teacher' || bk === 'launch-teacher') ? 'teacher' : 'student', yr = q.get('year') === '6' ? 6 : 5, only = q.get('key'), NAME = (q.get('name') || '').trim(), AUTO = q.get('auto') === '1', PART = {}, DONE = {}, SC = {};
+  (q.get('st') || '').split(',').forEach(function (x) { var p = x.split(':'); if (p[0] && +p[1] > 0) { if (+p[1] >= 5) DONE[p[0]] = true; else PART[p[0]] = +p[1]; } });
+  (q.get('sc') || '').split(',').forEach(function (x) { var p = x.split(':'); if (p[0] && +p[1] > 0) SC[p[0]] = +p[1]; });
+  var isDone = function (k) { return !!DONE[k.id]; };
   var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
   var hl = function (s) { return esc(s).replace(/«(.*?)»/g, '<mark>$1</mark>').replace(/\n+/g, ' / '); };
   var EL = {}; WK.elements.forEach(function (e) { EL[e.id] = e; });
   var KL = WK.keys.map(function (k, i) { k._i = i; return k; }).sort(function (a, b) { return a.r - b.r || a._i - b._i; });
-  var by = function (el) { return KL.filter(function (k) { return k.el === el && !k.cu; }); };
+  var by = function (el) { return KL.filter(function (k) { return k.el === el && !k.cu && !isDone(k); }); };
+  var byMain = function (el) { return KL.filter(function (k) { return k.el === el && !k.cu; }); };
   var byAll = function (el) { return KL.filter(function (k) { return k.el === el; }); };
   var byCu = function (el) { return KL.filter(function (k) { return k.el === el && k.cu; }); };
   var tierOf = WK.tier[yr], TL = WK.tierLabel;
   var pg = 0, out = [];
   var art = function (n, st) { return '<div class="slot" style="' + st + '"><img src="assets/art/' + n + '.png" alt="" onerror="this.remove()"></div>'; };
   var spark = function (w) { return '<svg width="' + w + '" viewBox="0 0 220 220"><ellipse cx="110" cy="116" rx="104" ry="34" fill="none" stroke="#ED2161" stroke-width="9" transform="rotate(-24 110 116)"/><path d="M110 8 C121 82 140 100 212 110 C140 120 121 138 110 212 C99 138 80 120 8 110 C80 100 99 82 110 8Z" fill="#ED2161"/></svg>'; };
-  function page(cls, inner, style, dark) { pg++; out.push('<section class="page ' + cls + (dark ? ' dark' : '') + '" style="' + (style || '') + '">' + inner + '<div class="foot"><span>' + (LP ? 'Writing Keys · Launch Pad · ' + (book === 'teacher' ? 'Teacher Guide' : 'Student Booklet') : 'Writing Keys · Year ' + yr + ' · ' + (book === 'teacher' ? 'Teacher Book' : 'Student Booklet')) + '</span><span>' + pg + '</span></div></section>'); }
+  function page(cls, inner, style, dark) { pg++; out.push('<section class="page ' + cls + (dark ? ' dark' : '') + '" style="' + (style || '') + '">' + inner + '<div class="foot"><span>' + (NAME ? '<b style="font-size:9pt;color:#222">' + esc(NAME) + '</b> · ' : '') + (LP ? 'Writing Keys · Launch Pad · ' + (book === 'teacher' ? 'Teacher Guide' : 'Student Booklet') : 'Writing Keys · Year ' + yr + ' · ' + (book === 'teacher' ? 'Teacher Book' : 'Student Booklet')) + '</span><span>' + pg + '</span></div></section>'); }
 
   function cover() {
-    page('cover', '<img class="coverbg" src="assets/art/cover-y' + yr + '-' + book + '.png" alt="" onerror="this.remove()"><span class="sticker">Level up!</span><h1 class="ctitle">Writing Keys</h1><div class="chips"><span><i class="dot"></i><b>45 keys</b> to collect</span><span><i class="dot o"></i><b>7 skills</b> to master</span></div><div class="disp" style="font-size:22pt">Year ' + yr + ' ' + (book === 'teacher' ? 'Teacher Book' : 'Student Booklet') + '</div>' + (book === 'student' ? '<div style="display:flex;gap:6mm"><div class="namebox" style="min-width:80mm">Name:</div><div class="namebox" style="min-width:60mm">Class:</div></div>' : '<div class="small" style="color:#ddd;max-width:150mm">Self-directed writing skills, mapped to the NZ Curriculum and e-asTTle writing</div>'), '', true);
+    page('cover', '<img class="coverbg" src="assets/art/cover-y' + yr + '-' + book + '.png" alt="" onerror="this.remove()"><span class="sticker">Level up!</span><h1 class="ctitle">Writing Keys</h1><div class="chips"><span><i class="dot"></i><b>45 keys</b> to collect</span><span><i class="dot o"></i><b>7 skills</b> to master</span></div><div class="disp" style="font-size:22pt">Year ' + yr + ' ' + (book === 'teacher' ? 'Teacher Book' : 'Student Booklet') + '</div>' + (book === 'student' ? '<div style="display:flex;gap:6mm"><div class="namebox" style="min-width:80mm">Name: <b>' + esc(NAME) + '</b></div><div class="namebox" style="min-width:60mm">Class:</div></div>' : '<div class="small" style="color:#ddd;max-width:150mm">Self-directed writing skills, mapped to the NZ Curriculum and e-asTTle writing</div>'), '', true);
   }
   function how() {
     var steps = [['1', 'Pick a key', 'Choose a Writing Key from your passport. START HERE keys are your next step.'], ['2', 'Learn it', 'Read the card, study the examples and do the activity.'], ['3', 'Write', 'Use the prompts, or any piece of writing, and use your key on purpose.'], ['4', 'Prove it', 'Circle it, draw an arrow, write the key code. Add the date on your card.'], ['5', 'Colour it in', 'After 5 proofs in 5 different pieces, colour the whole key in your passport!'], ['6', 'Keep it up', 'Every new piece must still use the keys you already own.']];
@@ -106,22 +110,24 @@ table.ev { width: 100%; border-collapse: collapse; font-size: 8.5pt; } table.ev 
       '<div class="sec"><h3 style="filter:none;color:#111;font-size:13pt">The one rule</h3><p><b>New writing must use your old keys.</b> Every time you write, circle, arrow and comment every key you have already coloured in, plus your focus key.</p></div>', '', false);
   }
   function easttle() {
-    var rows = WK.elements.map(function (e) { return '<tr style="--c:' + e.color + '"><td><b style="color:' + e.color + '">' + e.code + '</b> ' + e.name + '</td><td>' + esc(e.blurb) + '</td><td style="width:22mm">R ___ / ' + e.max + '</td></tr>'; }).join('');
+    var rows = WK.elements.map(function (e) { return '<tr style="--c:' + e.color + '"><td><b style="color:' + e.color + '">' + e.code + '</b> ' + e.name + '</td><td>' + esc(e.blurb) + '</td><td style="width:22mm">R ' + (SC[e.id] ? '<b>' + SC[e.id] + '</b>' : '___') + ' / ' + e.max + '</td></tr>'; }).join('');
     page('', '<h2 style="color:var(--pink);font-size:26pt">My e-asTTle starting points</h2><p>e-asTTle writing markers look at <b>seven</b> things. Your teacher will fill in your scores after your writing test. Keys <b>below</b> your score are already showing, so colour them in! The next key is where you <b>start</b>.</p><table class="tbl" style="margin-top:4mm"><tr><th>Skill</th><th>What the marker looks for</th><th>My score</th></tr>' + rows + '</table><div class="sec"><h3 style="filter:none;color:#111;font-size:13pt">How the keys match the score</h3><p>Each key belongs to a score level, shown on its card (for example, "Sentence Structure R3"). Showing a key 5 times in your writing is how you prove you are working at that level. Reaching the next level means mastering the keys there.</p></div><div class="sec"><h3 style="filter:none;color:#111;font-size:13pt">My goal</h3><div class="tk"></div><div class="tk"></div><div class="tk"></div></div>', '', false);
   }
   function posters() {
     var im = function (n) { return '<img src="assets/art/' + n + '.png" alt="" style="width:92mm;border-radius:4mm" onerror="this.remove()">'; };
     page('', '<h2 style="color:var(--pink);font-size:26pt">Your two big ideas</h2><p class="small" style="margin:1mm 0 4mm">Left: every time you use a key, <b>circle</b> it, draw an <b>arrow</b> and write a <b>comment</b>. Right: the 7 skills your keys belong to.</p><div style="display:flex;gap:6mm;justify-content:center;align-items:flex-start">' + im('poster-circle-arrow-comment') + im('poster-7-skills') + '</div>', '', false);
   }
+  function dots(k, e) { var n = isDone(k) ? 5 : (PART[k.id] || 0), o = ''; for (var i = 0; i < 5; i++) o += '<i' + (i < n ? ' style="background:' + e.color + '"' : '') + '></i>'; return o; }
   function passport() {
-    var rows = WK.elements.map(function (e) { return '<div class="pprow" style="--c:' + e.color + '"><div class="pplab"><img src="assets/art/icon-' + e.id + '.png" alt="" style="height:8mm;vertical-align:middle" onerror="this.replaceWith(document.createTextNode(\'' + e.icon + '\'))"> ' + e.name + '<br><span style="font-family:var(--body);font-weight:600;font-size:6.5pt">' + e.nick + '</span></div><div class="ppkeys">' + by(e.id).map(function (k) { return '<div class="ppk"><span><b>' + k.id + '</b>' + esc(k.name) + '</span><div class="p"><i></i><i></i><i></i><i></i><i></i></div></div>'; }).join('') + '</div></div>'; }).join('');
+    var rows = WK.elements.map(function (e) { return '<div class="pprow" style="--c:' + e.color + '"><div class="pplab"><img src="assets/art/icon-' + e.id + '.png" alt="" style="height:8mm;vertical-align:middle" onerror="this.replaceWith(document.createTextNode(\'' + e.icon + '\'))"> ' + e.name + '<br><span style="font-family:var(--body);font-weight:600;font-size:6.5pt">' + e.nick + '</span></div><div class="ppkeys">' + byMain(e.id).map(function (k) { return '<div class="ppk"' + (isDone(k) ? ' style="background:' + e.color + '55"' : '') + '><span><b>' + k.id + '</b>' + esc(k.name) + (isDone(k) ? '<br>★ done' : '') + '</span><div class="p">' + dots(k, e) + '</div></div>'; }).join('') + '</div></div>'; }).join('');
     page('', '<div class="row"><h2 style="color:var(--pink);font-size:26pt">My Writing Passport</h2></div><p class="small" style="margin:1mm 0 3mm">Colour a dot each time you prove the key in a different piece of writing. Colour the whole box when all 5 dots are done. Gold star next to any key you already showed in your e-asTTle test!</p><div class="pp">' + rows + '</div>', '', false);
   }
   function divider(e) {
     page('divider', '<div class="big"><img src="assets/art/icon-' + e.id + '.png" alt="" style="height:26mm;vertical-align:middle" onerror="this.replaceWith(document.createTextNode(\'' + e.icon + '\'))"></div><h1>' + e.name + '</h1><div class="disp" style="font-size:16pt">' + e.nick + '</div><div style="max-width:120mm;font-size:12pt">' + esc(e.blurb) + '</div>' + art('divider-' + e.id, 'width:110mm;height:90mm') + '<div class="small" style="color:#bbb;max-width:130mm">NZ Curriculum Year ' + yr + ': ' + esc(WK.nzc[e.id][yr]) + '</div>', '--c:' + e.color, true);
   }
+  function evRows(k) { var o = '', n = PART[k.id] || 0; for (var i = 1; i <= 5; i++) o += '<tr><td class="n">' + i + '</td>' + (i <= n ? '<td colspan="2" style="color:#777">★ credited from e-asTTle test</td><td></td>' : '<td></td><td></td><td></td>') + '</tr>'; return o; }
   function keyCard(k) {
-    var e = EL[k.el], t = tierOf(k.r), ev = ''; for (var i = 1; i <= 5; i++) ev += '<tr><td class="n">' + i + '</td><td></td><td></td><td></td></tr>';
+    var e = EL[k.el], t = tierOf(k.r), ev = evRows(k);
     page('keyp', '<div class="band" style="--c:' + e.color + '"><span class="pill">' + k.id + '</span><span class="pill w">' + TL[t] + '</span><span class="pill w">' + e.name + ' · R' + k.r + '</span><h2>' + esc(k.name) + '</h2><div class="hook">' + esc(k.hook) + '</div></div>' +
       '<div class="sec" style="--c:' + e.color + '"><h3>What is it?</h3>' + esc(k.what) + '<div class="small" style="margin-top:1mm"><b>Why it lifts your score:</b> ' + esc(k.why) + '</div></div>' +
       '<div class="two" style="--c:' + e.color + '"><div class="sec"><h3>How to do it</h3><ol class="steps">' + k.steps.map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ol></div><div class="sec"><h3>I have got it when…</h3><ul class="ul">' + k.check.map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ul></div></div>' +
@@ -175,12 +181,12 @@ table.ev { width: 100%; border-collapse: collapse; font-size: 8.5pt; } table.ev 
 
   // ---------- LAUNCH PAD (catch-up pack) ----------
   var EI = {}; WK.elements.forEach(function (e, i) { EI[e.id] = i; });
-  var LKS = KL.filter(function (k) { return k.cu; }).sort(function (a, b) { return EI[a.el] - EI[b.el] || a.r - b.r; });
+  var LKS = KL.filter(function (k) { return k.cu && !isDone(k); }).sort(function (a, b) { return EI[a.el] - EI[b.el] || a.r - b.r; });
   var icon = function (e, h) { return '<img src="assets/art/icon-' + e.id + '.png" alt="" style="height:' + h + ';vertical-align:middle" onerror="this.remove()">'; };
   var ul = function (a, cls) { return '<ul class="ul ' + (cls || '') + '">' + a.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>'; };
   function lCover() {
     var fb = 'cover-y5-' + (book === 'teacher' ? 'teacher' : 'student');
-    page('cover', '<img class="coverbg" src="assets/art/cover-catchup-' + book + '.png" alt="" onerror="this.onerror=function(){this.remove()};this.src=\'assets/art/' + fb + '.png\'"><span class="sticker">Blast off!</span><h1 class="ctitle">Launch Pad</h1><div class="chips"><span><i class="dot"></i><b>12 keys</b> to catch up</span><span><i class="dot o"></i><b>7 skills</b> to boost</span></div><div class="disp" style="font-size:20pt">Catch-up ' + (book === 'teacher' ? 'Teacher Guide' : 'Student Booklet') + '</div>' + (book === 'student' ? '<div style="display:flex;gap:6mm"><div class="namebox" style="min-width:80mm">Name:</div><div class="namebox" style="min-width:60mm">Class:</div></div>' : '<div class="small" style="color:#ddd;max-width:150mm">A fast-track writing pack for students working below R3 in e-asTTle writing. Years 5 and 6.</div>'), '', true);
+    page('cover', '<img class="coverbg" src="assets/art/cover-catchup-' + book + '.png" alt="" onerror="this.onerror=function(){this.remove()};this.src=\'assets/art/' + fb + '.png\'"><span class="sticker">Blast off!</span><h1 class="ctitle">Launch Pad</h1><div class="chips"><span><i class="dot"></i><b>12 keys</b> to catch up</span><span><i class="dot o"></i><b>7 skills</b> to boost</span></div><div class="disp" style="font-size:20pt">Catch-up ' + (book === 'teacher' ? 'Teacher Guide' : 'Student Booklet') + '</div>' + (book === 'student' ? '<div style="display:flex;gap:6mm"><div class="namebox" style="min-width:80mm">Name: <b>' + esc(NAME) + '</b></div><div class="namebox" style="min-width:60mm">Class:</div></div>' : '<div class="small" style="color:#ddd;max-width:150mm">A fast-track writing pack for students working below R3 in e-asTTle writing. Years 5 and 6.</div>'), '', true);
   }
   function lHow() {
     var steps = [['1', 'Learn it', 'Read the key card. Look at the Not yet, Got it and Wow examples.'], ['2', 'Warm up', 'Do the quick warm-up activities. Check your answers with your teacher.'], ['3', 'Write with help', 'Use the sentence starters. They do the hard part for you.'], ['4', 'Write on your own', 'Now write without the starters. Use what you learned.'], ['5', 'Prove it', 'Circle it. Arrow to it. Write the key code in the margin. Add it to your card. After 5 pieces, colour the key in!']];
@@ -192,15 +198,15 @@ table.ev { width: 100%; border-collapse: collapse; font-size: 8.5pt; } table.ev 
   function lStart() {
     var rows = WK.elements.map(function (e) {
       var path = lPathRows(e.id), nxt = byAll(e.id).filter(function (k) { return k.r === 3; })[0];
-      var chips = path.map(function (k) { return '<span style="display:inline-block;border:.6mm ' + (k.cu ? 'solid' : 'dashed') + ' ' + e.color + ';border-radius:2mm;padding:.5mm 2mm;margin:.5mm;font-size:8pt"><b>' + k.id + '</b> ' + esc(k.name) + ' <span class="small">R' + k.r + (k.cu ? '' : ' · main booklet') + '</span></span>'; }).join(' ➜ ');
-      return '<tr><td style="width:36mm"><b style="color:' + e.color + '">' + icon(e, '6mm') + ' ' + e.name + '</b></td><td style="width:20mm">R ___ / ' + e.max + '</td><td>' + chips + (nxt ? ' ➜ <span class="small">then <b>' + nxt.id + '</b> ' + esc(nxt.name) + ' (main booklet)</span>' : '') + '</td></tr>';
+      var chips = path.map(function (k) { return '<span style="display:inline-block;border:.6mm ' + (k.cu ? 'solid' : 'dashed') + ' ' + e.color + ';border-radius:2mm;padding:.5mm 2mm;margin:.5mm;font-size:8pt' + (isDone(k) ? ';background:' + e.color + '55' : '') + '">' + (isDone(k) ? '★ ' : '') + '<b>' + k.id + '</b> ' + esc(k.name) + ' <span class="small">R' + k.r + (k.cu ? '' : ' · main booklet') + '</span></span>'; }).join(' ➜ ');
+      return '<tr><td style="width:36mm"><b style="color:' + e.color + '">' + icon(e, '6mm') + ' ' + e.name + '</b></td><td style="width:20mm">R ' + (SC[e.id] ? '<b>' + SC[e.id] + '</b>' : '___') + ' / ' + e.max + '</td><td>' + chips + (nxt ? ' ➜ <span class="small">then <b>' + nxt.id + '</b> ' + esc(nxt.name) + ' (main booklet)</span>' : '') + '</td></tr>';
     }).join('');
     page('', '<h2 style="color:var(--pink);font-size:26pt">Where do I start?</h2><p>Your teacher will write your e-asTTle scores in the boxes. If a skill is <b>below R3</b>, Launch Pad is your start. Find your score, then start at the key with the <b>same R number</b>. Keys with a lower R are already showing, so colour them in!</p><table class="tbl" style="margin-top:3mm"><tr><th>Skill</th><th>My score</th><th>My Launch Pad path</th></tr>' + rows + '</table><div class="sec"><h3 style="filter:none;color:#111;font-size:12pt">What is the dashed box?</h3><p>Three skills have an R2 key in the main Writing Keys booklet. Do those when you get to them. Solid boxes are Launch Pad keys.</p></div><div class="sec"><h3 style="filter:none;color:#111;font-size:12pt">My goal</h3><div class="tk"></div><div class="tk"></div></div>', '', false);
   }
   function lPassport() {
     var rows = WK.elements.map(function (e) {
       var ks = lPathRows(e.id);
-      return '<div class="pprow" style="--c:' + e.color + '"><div class="pplab">' + icon(e, '8mm') + ' ' + e.name + '<br><span style="font-family:var(--body);font-weight:600;font-size:6.5pt">' + e.nick + '</span></div><div class="ppkeys" style="grid-template-columns:repeat(3,minmax(0,1fr))">' + ks.map(function (k) { return '<div class="ppk" style="min-height:30mm' + (k.cu ? '' : ';border-style:dashed') + '"><span><b>' + k.id + '</b>' + esc(k.name) + '<br><i style="font-style:normal;font-size:6pt">R' + k.r + (k.cu ? '' : ' main') + '</i></span><div class="p"><i></i><i></i><i></i><i></i><i></i></div></div>'; }).join('') + '</div></div>';
+      return '<div class="pprow" style="--c:' + e.color + '"><div class="pplab">' + icon(e, '8mm') + ' ' + e.name + '<br><span style="font-family:var(--body);font-weight:600;font-size:6.5pt">' + e.nick + '</span></div><div class="ppkeys" style="grid-template-columns:repeat(3,minmax(0,1fr))">' + ks.map(function (k) { return '<div class="ppk" style="min-height:30mm' + (k.cu ? '' : ';border-style:dashed') + (isDone(k) ? ';background:' + e.color + '55' : '') + '"><span><b>' + k.id + '</b>' + esc(k.name) + (isDone(k) ? ' ★' : '') + '<br><i style="font-style:normal;font-size:6pt">R' + k.r + (k.cu ? '' : ' main') + '</i></span><div class="p">' + dots(k, e) + '</div></div>'; }).join('') + '</div></div>';
     }).join('');
     page('', '<h2 style="color:var(--pink);font-size:26pt">My Launch Pad Passport</h2><p class="small" style="margin:1mm 0 3mm">Colour one dot each time you prove the key in a different piece of writing. When all 5 dots are done, colour the whole box. Gold star if your e-asTTle test already showed it.</p><div class="pp">' + rows + '</div>', '', false);
   }
@@ -221,7 +227,7 @@ table.ev { width: 100%; border-collapse: collapse; font-size: 8.5pt; } table.ev 
     page('keyp', '<div class="band" style="--c:' + e.color + ';padding:2.5mm 5mm"><span class="pill">' + k.id + '</span><span class="pill w">2 Try it</span><b style="font-family:var(--display);font-size:16pt;text-transform:uppercase;margin-left:2mm">' + esc(k.name) + '</b></div>' + bank + warm, '', false);
   }
   function lWrite(k) {
-    var e = EL[k.el], t1 = k.write[0], t2 = k.write[1], ev = ''; for (var i = 1; i <= 5; i++) ev += '<tr><td class="n">' + i + '</td><td></td><td></td><td></td></tr>';
+    var e = EL[k.el], t1 = k.write[0], t2 = k.write[1], ev = evRows(k);
     var frames = t1.frame.map(function (f) { return '<div style="margin-bottom:1mm"><span style="background:' + e.color + '33;border-radius:2mm;padding:.5mm 2mm;font-size:10pt;font-weight:600">' + esc(f) + '</span><div class="tk" style="height:8mm"></div></div>'; }).join('');
     var lines = ''; for (var j = 0; j < (t2.lines || 5); j++) lines += '<div class="tk" style="height:8mm"></div>';
     page('keyp', '<div class="band" style="--c:' + e.color + ';padding:2.5mm 5mm"><span class="pill">' + k.id + '</span><span class="pill w">3 Write it</span><b style="font-family:var(--display);font-size:16pt;text-transform:uppercase;margin-left:2mm">' + esc(k.name) + '</b></div>' +
@@ -278,6 +284,7 @@ table.ev { width: 100%; border-collapse: collapse; font-size: 8.5pt; } table.ev 
   } else if (LP && book === 'student') {
     lCover(); lHow(); lStart(); lPassport();
     LKS.forEach(function (k) { lLearn(k); lTry(k); lWrite(k); });
+    if (!LKS.length) page('', '<h2 style="color:var(--pink);font-size:26pt">You are already caught up!</h2><p style="font-size:13pt">' + esc(NAME || 'This student') + ' has already achieved every Launch Pad key. Use the main Writing Keys booklet.</p>', '', false);
     writingLog(); lGrad(); back();
   } else if (LP) {
     lCover(); ltGuide(); ltPlan(); ltMap();
@@ -285,7 +292,8 @@ table.ev { width: 100%; border-collapse: collapse; font-size: 8.5pt; } table.ev 
     ltTracker(LKS.slice(0, 6), 'Launch Pad keys 1 to 6'); ltTracker(LKS.slice(6), 'Launch Pad keys 7 to 12'); ltGrad(); back();
   } else if (book === 'student') {
     cover(); how(); posters(); easttle(); passport();
-    WK.elements.forEach(function (e) { divider(e); by(e.id).forEach(keyCard); });
+    WK.elements.forEach(function (e) { if (by(e.id).length) { divider(e); by(e.id).forEach(keyCard); } });
+    if (!KL.some(function (k) { return !k.cu && !isDone(k); })) page('', '<h2 style="color:var(--pink);font-size:26pt">All main keys achieved!</h2><p>' + esc(NAME || 'This student') + ' has already achieved every key in this booklet. Choose a stretch goal with your teacher.</p>', '', false);
     writingLog(); writingLog(); testDay(); passport(); back();
   } else {
     cover(); tHow(); tNzc(); tMap(); easttle();
@@ -293,6 +301,8 @@ table.ev { width: 100%; border-collapse: collapse; font-size: 8.5pt; } table.ev 
     testDay(); back();
   }
   document.getElementById('out').innerHTML = out.join('');
+  if (NAME) document.title = 'Writing Keys ' + (LP ? 'Launch Pad' : 'Year ' + yr) + ' - ' + NAME;
+  if (AUTO) { var go = function () { setTimeout(function () { window.print(); }, 700); }; (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(go); }
   document.getElementById('bt').textContent = 'Writing Keys · Year ' + yr + ' · ' + (only ? 'Key ' + only : LP ? 'Launch Pad ' + (book === 'teacher' ? 'Teacher Guide' : 'Student Booklet') : book === 'teacher' ? 'Teacher Book' : 'Student Booklet') + ' · ' + out.length + ' pages';
 })();
 </script>
