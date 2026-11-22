@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Writing Keys booklet</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@400;500;600;700;800&display=swap');
+:root { --pink:#ED2161; --ink:#101409; --bg:#15171a; --display:'Archivo Black','Arial Black',sans-serif; --body:'Poppins',system-ui,sans-serif; }
+* { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+@page { size: A4; margin: 0; }
+html, body { margin: 0; background: #888; font-family: var(--body); color: #111; font-size: 10.5pt; line-height: 1.35; }
+.bar { position: sticky; top: 0; background: #101409; color: #fff; padding: 10px 16px; display: flex; gap: 12px; align-items: center; z-index: 9; font-weight: 600; }
+.bar button { background: var(--pink); color: #fff; border: 0; padding: 8px 16px; border-radius: 99px; font-weight: 700; cursor: pointer; }
+.page { width: 210mm; height: 297mm; padding: 12mm 13mm; margin: 10px auto; background: #fff; position: relative; overflow: hidden; page-break-after: always; break-after: page; display: flex; flex-direction: column; }
+.page:last-child { page-break-after: auto; }
+@media print { html, body { background: #fff; } .bar { display: none; } .page { margin: 0; box-shadow: none; } }
+h1, h2, h3, .disp { font-family: var(--display); font-weight: 400; text-transform: uppercase; margin: 0; line-height: 1.02; }
+.dark { background: var(--bg); color: #fff; }
+.dark::before { content: ''; position: absolute; inset: 0; opacity: .06; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='260'%3E%3Ctext x='10' y='120' font-family='Arial Black,Arial,sans-serif' font-weight='900' font-size='130' fill='white' transform='rotate(-12 200 130)'%3EKEYS%3C/text%3E%3C/svg%3E"); }
+.dark > * { position: relative; }
+.cover { align-items: center; text-align: center; justify-content: center; gap: 4mm; }
+.coverbg { position: absolute !important; left: 0; bottom: 0; width: 210mm; z-index: 0; } .cover > *:not(.coverbg) { z-index: 1; } .cover { justify-content: flex-start; padding-top: 14mm; } .cover h1.ctitle { font-size: 60pt; white-space: nowrap; }
+.cover h1 { font-size: 78pt; color: var(--pink); line-height: .86; }
+.sticker { display: inline-block; background: #fff; color: var(--pink); font-family: var(--display); padding: 2mm 5mm 1mm; border-radius: 3mm; transform: rotate(-4deg); font-size: 18pt; box-shadow: 0 0 0 1.2mm var(--pink); text-transform: uppercase; }
+.chips { display: flex; gap: 10mm; justify-content: center; font-size: 10pt; }
+.dot { width: 9mm; height: 9mm; border-radius: 50%; display: inline-block; vertical-align: middle; margin-right: 3mm; background: var(--pink); } .dot.o { background: none; border: 1.4mm solid var(--pink); }
+.slot { position: relative; } .slot img { width: 100%; height: 100%; object-fit: contain; position: absolute; inset: 0; }
+.namebox { border: 1.2mm solid var(--pink); border-radius: 4mm; padding: 3mm 8mm; font-weight: 700; min-width: 110mm; text-align: left; color: #fff; }
+.band { border-radius: 4mm; padding: 4mm 5mm; color: var(--ink); background: var(--c); position: relative; overflow: hidden; }
+.band .code { font-family: var(--display); font-size: 13pt; } .band h2 { font-size: 26pt; margin: 1mm 0; } .band .hook { font-weight: 700; font-size: 11pt; }
+.pill { display: inline-block; background: var(--ink); color: #fff; border-radius: 99px; padding: .6mm 3mm; font-size: 7.5pt; font-weight: 800; margin-right: 1.5mm; text-transform: uppercase; }
+.pill.w { background: #fff; color: var(--ink); }
+.sec { margin-top: 3mm; } .sec h3 { font-size: 11.5pt; color: var(--c); margin-bottom: 1mm; filter: brightness(.82); }
+.steps { margin: 0; padding-left: 5mm; } .steps li { margin-bottom: .6mm; }
+.lad { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2.5mm; } .lad div { border-radius: 2.5mm; background: #f3f3f4; padding: 2mm 3mm; border-top: 1.4mm solid #ccc; font-size: 9.5pt; } .lad b { display: block; font-size: 7pt; letter-spacing: .08em; text-transform: uppercase; color: #666; }
+.lad .a { border-top-color: #FFD23F; } .lad .b { border-top-color: #3DDC97; } .lad .c { border-top-color: var(--c); }
+mark { background: color-mix(in srgb, var(--c, #ED2161) 45%, white); padding: 0 1mm; border-radius: 1mm; font-weight: 700; color: #111; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; }
+.ul { margin: 0; padding-left: 5mm; } .ul li::marker { color: var(--c); }
+.prove { margin-top: auto; border: 1mm solid var(--c); border-radius: 4mm; padding: 3mm 4mm; }
+.prove h3 { color: #111 !important; filter: none !important; }
+.how { background: #101409; color: #fff; border-radius: 3mm; padding: 2mm 3mm; font-size: 9pt; margin-bottom: 2mm; }
+table.ev { width: 100%; border-collapse: collapse; font-size: 8.5pt; } table.ev th { text-align: left; background: #f3f3f4; padding: 1mm 2mm; } table.ev td { border-bottom: .3mm solid #bbb; height: 7mm; padding: 0 2mm; } table.ev td.n { width: 8mm; font-weight: 800; color: var(--c); font-family: var(--display); }
+.small { font-size: 8pt; color: #555; }
+.nzc { font-size: 7.5pt; color: #555; margin-top: 1.5mm; }
+.pp { display: grid; gap: 2.2mm; }
+.pprow { display: grid; grid-template-columns: 30mm minmax(0,1fr); gap: 3mm; align-items: center; }
+.pplab { background: var(--c); border-radius: 3mm; padding: 2mm 3mm; font-family: var(--display); font-size: 9pt; text-transform: uppercase; color: var(--ink); line-height: 1.05; }
+.ppkeys { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0,1fr); gap: 1.6mm; }
+.ppk { border: .8mm solid var(--c); border-radius: 2.5mm; padding: 1.2mm; overflow: hidden; text-align: center; font-size: 7pt; line-height: 1.05; min-height: 25mm; display: flex; flex-direction: column; justify-content: space-between; }
+.ppk b { font-family: var(--display); font-size: 10pt; display: block; } .ppk .p { display: flex; gap: 1mm; justify-content: center; } .ppk .p i { width: 3.2mm; height: 3.2mm; border-radius: 50%; border: .5mm solid var(--c); display: block; }
+.divider { justify-content: center; align-items: center; text-align: center; gap: 4mm; }
+.divider h1 { font-size: 46pt; color: var(--c); } .divider .big { font-size: 90pt; }
+.tbl { width: 100%; border-collapse: collapse; font-size: 8.5pt; } .tbl th { background: #101409; color: #fff; padding: 1.5mm 2mm; text-align: left; } .tbl td { border: .3mm solid #bbb; padding: 1.2mm 2mm; vertical-align: top; }
+.tbl.fill td { height: 8mm; }
+.tg { border-radius: 3mm; background: #f6f6f7; padding: 2mm 3mm; margin-bottom: 2mm; border-left: 1.4mm solid var(--c); font-size: 9pt; }
+.tg b { color: #111; }
+.tk { border-bottom: .3mm solid #999; height: 7.5mm; display: flex; align-items: center; gap: 2mm; }
+.box { width: 4.5mm; height: 4.5mm; border: .5mm solid #333; border-radius: 1mm; display: inline-block; flex: none; }
+.foot { position: absolute; bottom: 5mm; left: 13mm; right: 13mm; display: flex; justify-content: space-between; font-size: 7pt; color: #888; } .dark .foot { color: #999; }
+.keyp { padding-bottom: 14mm; }
+.page > * { flex-shrink: 0; }
+.keyp .sec { margin-top: 2.2mm; } .keyp table.ev td { height: 6mm; } .keyp .nzc { margin-top: 1mm; }
+.tpage { gap: 3mm; }
+</style>
+</head>
+<body>
+<div class="bar"><span id="bt">Writing Keys booklet</span><button onclick="window.print()">🖨 Print / Save as PDF</button><span style="font-weight:400;font-size:12px">Tip: in the print box choose A4, margins None, and tick Background graphics.</span></div>
+<div id="out"></div>
+<script src="config.js"></script>
+<script src="data/core.js"></script>
+<script src="data/keys-ideas.js"></script>
+<script src="data/keys-structure.js"></script>
+<script src="data/keys-organisation.js"></script>
+<script src="data/keys-vocabulary.js"></script>
+<script src="data/keys-sentence.js"></script>
+<script src="data/keys-punctuation.js"></script>
+<script src="data/keys-spelling.js"></script>
+<script src="data/keys-catchup1.js"></script>
+<script src="data/keys-catchup2.js"></script>
+<script>
+(function () {
+  var WK = window.WK, q = new URLSearchParams(location.search), bk = q.get('book') || 'student', LP = bk === 'launch' || bk === 'launch-teacher', book = (bk === 'teacher' || bk === 'launch-teacher') ? 'teacher' : 'student', yr = q.get('year') === '6' ? 6 : 5, only = q.get('key');
+  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  var hl = function (s) { return esc(s).replace(/«(.*?)»/g, '<mark>$1</mark>').replace(/\n+/g, ' / '); };
+  var EL = {}; WK.elements.forEach(function (e) { EL[e.id] = e; });
+  var KL = WK.keys.map(function (k, i) { k._i = i; return k; }).sort(function (a, b) { return a.r - b.r || a._i - b._i; });
+  var by = function (el) { return KL.filter(function (k) { return k.el === el && !k.cu; }); };
+  var byAll = function (el) { return KL.filter(function (k) { return k.el === el; }); };
+  var byCu = function (el) { return KL.filter(function (k) { return k.el === el && k.cu; }); };
+  var tierOf = WK.tier[yr], TL = WK.tierLabel;
+  var pg = 0, out = [];
+  var art = function (n, st) { return '<div class="slot" style="' + st + '"><img src="assets/art/' + n + '.png" alt="" onerror="this.remove()"></div>'; };
+  var spark = function (w) { return '<svg width="' + w + '" viewBox="0 0 220 220"><ellipse cx="110" cy="116" rx="104" ry="34" fill="none" stroke="#ED2161" stroke-width="9" transform="rotate(-24 110 116)"/><path d="M110 8 C121 82 140 100 212 110 C140 120 121 138 110 212 C99 138 80 120 8 110 C80 100 99 82 110 8Z" fill="#ED2161"/></svg>'; };
+  function page(cls, inner, style, dark) { pg++; out.push('<section class="page ' + cls + (dark ? ' dark' : '') + '" style="' + (style || '') + '">' + inner + '<div class="foot"><span>' + (LP ? 'Writing Keys · Launch Pad · ' + (book === 'teacher' ? 'Teacher Guide' : 'Student Booklet') : 'Writing Keys · Year ' + yr + ' · ' + (book === 'teacher' ? 'Teacher Book' : 'Student Booklet')) + '</span><span>' + pg + '</span></div></section>'); }
+
+  function cover() {
+    page('cover', '<img class="coverbg" src="assets/art/cover-y' + yr + '-' + book + '.png" alt="" onerror="this.remove()"><span class="sticker">Level up!</span><h1 class="ctitle">Writing Keys</h1><div class="chips"><span><i class="dot"></i><b>45 keys</b> to collect</span><span><i class="dot o"></i><b>7 skills</b> to master</span></div><div class="disp" style="font-size:22pt">Year ' + yr + ' ' + (book === 'teacher' ? 'Teacher Book' : 'Student Booklet') + '</div>' + (book === 'student' ? '<div style="display:flex;gap:6mm"><div class="namebox" style="min-width:80mm">Name:</div><div class="namebox" style="min-width:60mm">Class:</div></div>' : '<div class="small" style="color:#ddd;max-width:150mm">Self-directed writing skills, mapped to the NZ Curriculum and e-asTTle writing</div>'), '', true);
+  }
+  function how() {
+    var steps = [['1', 'Pick a key', 'Choose a Writing Key from your passport. START HERE keys are your next step.'], ['2', 'Learn it', 'Read the card, study the examples and do the activity.'], ['3', 'Write', 'Use the prompts, or any piece of writing, and use your key on purpose.'], ['4', 'Prove it', 'Circle it, draw an arrow, write the key code. Add the date on your card.'], ['5', 'Colour it in', 'After 5 proofs in 5 different pieces, colour the whole key in your passport!'], ['6', 'Keep it up', 'Every new piece must still use the keys you already own.']];
+    page('', '<h2 style="color:var(--pink);font-size:30pt">How Writing Keys works</h2><div class="two" style="margin-top:6mm">' + steps.map(function (s) { return '<div class="tg" style="--c:#ED2161;padding:4mm"><span class="disp" style="font-size:20pt;color:#ED2161">' + s[0] + '</span> <b style="font-size:12pt">' + s[1] + '</b><br>' + s[2] + '</div>'; }).join('') + '</div>' +
+      '<div class="sec" style="--c:#ED2161"><h3 style="filter:none;color:#ED2161;font-size:15pt">Circle · Arrow · Comment</h3><div class="two"><div class="tg" style="--c:#ED2161"><b>Example</b><br>I wanted to swim, but the water was freezing. <span style="color:#ED2161;font-weight:800"> ← SS2 compound sentence ✓</span></div><div><div class="tg" style="--c:#3DB8FF"><b>1. Circle</b> the joining word.</div><div class="tg" style="--c:#3DB8FF"><b>2. Arrow</b> to the two ideas it joins.</div><div class="tg" style="--c:#3DB8FF"><b>3. Comment</b> in the margin with the key code.</div></div></div></div>' +
+      '<div class="sec" style="--c:#FFD23F"><h3 style="filter:none;color:#111;font-size:13pt">Where is my teacher?</h3><p>Everyone works at their own speed. If you are in the teacher group, your teacher will teach you a key first. Everyone else uses this booklet and works independently: read the card, do the activity, write, prove it.</p></div>' +
+      '<div class="sec"><h3 style="filter:none;color:#111;font-size:13pt">The one rule</h3><p><b>New writing must use your old keys.</b> Every time you write, circle, arrow and comment every key you have already coloured in, plus your focus key.</p></div>', '', false);
+  }
+  function easttle() {
+    var rows = WK.elements.map(function (e) { return '<tr style="--c:' + e.color + '"><td><b style="color:' + e.color + '">' + e.code + '</b> ' + e.name + '</td><td>' + esc(e.blurb) + '</td><td style="width:22mm">R ___ / ' + e.max + '</td></tr>'; }).join('');
+    page('', '<h2 style="color:var(--pink);font-size:26pt">My e-asTTle starting points</h2><p>e-asTTle writing markers look at <b>seven</b> things. Your teacher will fill in your scores after your writing test. Keys <b>below</b> your score are already showing, so colour them in! The next key is where you <b>start</b>.</p><table class="tbl" style="margin-top:4mm"><tr><th>Skill</th><th>What the marker looks for</th><th>My score</th></tr>' + rows + '</table><div class="sec"><h3 style="filter:none;color:#111;font-size:13pt">How the keys match the score</h3><p>Each key belongs to a score level, shown on its card (for example, "Sentence Structure R3"). Showing a key 5 times in your writing is how you prove you are working at that level. Reaching the next level means mastering the keys there.</p></div><div class="sec"><h3 style="filter:none;color:#111;font-size:13pt">My goal</h3><div class="tk"></div><div class="tk"></div><div class="tk"></div></div>', '', false);
+  }
+  function posters() {
+    var im = function (n) { return '<img src="assets/art/' + n + '.png" alt="" style="width:92mm;border-radius:4mm" onerror="this.remove()">'; };
+    page('', '<h2 style="color:var(--pink);font-size:26pt">Your two big ideas</h2><p class="small" style="margin:1mm 0 4mm">Left: every time you use a key, <b>circle</b> it, draw an <b>arrow</b> and write a <b>comment</b>. Right: the 7 skills your keys belong to.</p><div style="display:flex;gap:6mm;justify-content:center;align-items:flex-start">' + im('poster-circle-arrow-comment') + im('poster-7-skills') + '</div>', '', false);
+  }
+  function passport() {
+    var rows = WK.elements.map(function (e) { return '<div class="pprow" style="--c:' + e.color + '"><div class="pplab"><img src="assets/art/icon-' + e.id + '.png" alt="" style="height:8mm;vertical-align:middle" onerror="this.replaceWith(document.createTextNode(\'' + e.icon + '\'))"> ' + e.name + '<br><span style="font-family:var(--body);font-weight:600;font-size:6.5pt">' + e.nick + '</span></div><div class="ppkeys">' + by(e.id).map(function (k) { return '<div class="ppk"><span><b>' + k.id + '</b>' + esc(k.name) + '</span><div class="p"><i></i><i></i><i></i><i></i><i></i></div></div>'; }).join('') + '</div></div>'; }).join('');
+    page('', '<div class="row"><h2 style="color:var(--pink);font-size:26pt">My Writing Passport</h2></div><p class="small" style="margin:1mm 0 3mm">Colour a dot each time you prove the key in a different piece of writing. Colour the whole box when all 5 dots are done. Gold star next to any key you already showed in your e-asTTle test!</p><div class="pp">' + rows + '</div>', '', false);
+  }
+  function divider(e) {
+    page('divider', '<div class="big"><img src="assets/art/icon-' + e.id + '.png" alt="" style="height:26mm;vertical-align:middle" onerror="this.replaceWith(document.createTextNode(\'' + e.icon + '\'))"></div><h1>' + e.name + '</h1><div class="disp" style="font-size:16pt">' + e.nick + '</div><div style="max-width:120mm;font-size:12pt">' + esc(e.blurb) + '</div>' + art('divider-' + e.id, 'width:110mm;height:90mm') + '<div class="small" style="color:#bbb;max-width:130mm">NZ Curriculum Year ' + yr + ': ' + esc(WK.nzc[e.id][yr]) + '</div>', '--c:' + e.color, true);
+  }
+  function keyCard(k) {
+    var e = EL[k.el], t = tierOf(k.r), ev = ''; for (var i = 1; i <= 5; i++) ev += '<tr><td class="n">' + i + '</td><td></td><td></td><td></td></tr>';
+    page('keyp', '<div class="band" style="--c:' + e.color + '"><span class="pill">' + k.id + '</span><span class="pill w">' + TL[t] + '</span><span class="pill w">' + e.name + ' · R' + k.r + '</span><h2>' + esc(k.name) + '</h2><div class="hook">' + esc(k.hook) + '</div></div>' +
+      '<div class="sec" style="--c:' + e.color + '"><h3>What is it?</h3>' + esc(k.what) + '<div class="small" style="margin-top:1mm"><b>Why it lifts your score:</b> ' + esc(k.why) + '</div></div>' +
+      '<div class="two" style="--c:' + e.color + '"><div class="sec"><h3>How to do it</h3><ol class="steps">' + k.steps.map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ol></div><div class="sec"><h3>I have got it when…</h3><ul class="ul">' + k.check.map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ul></div></div>' +
+      '<div class="sec" style="--c:' + e.color + '"><h3>See it level up</h3><div class="lad"><div class="a"><b>Not yet</b>' + hl(k.ex.before) + '</div><div class="b"><b>Got it</b>' + hl(k.ex.after) + '</div><div class="c"><b>Wow!</b>' + hl(k.ex.wow) + '</div></div></div>' +
+      '<div class="two" style="--c:' + e.color + '"><div class="sec"><h3>Activity: ' + esc(k.activity.name) + '</h3><ol class="steps">' + k.activity.steps.map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ol></div><div class="sec"><h3>Writing prompts</h3><ul class="ul">' + k.prompts[yr].map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('') + '<li>Your own piece: ______________________</li></ul></div></div>' +
+      '<div class="nzc">NZ Curriculum (English, Years 4-6, writing), Year ' + yr + ': ' + esc(WK.nzc[k.el][yr]) + '</div>' +
+      '<div class="prove" style="--c:' + e.color + '"><h3>Prove it 5 times</h3><div class="how"><b>Circle it. Arrow to it. Write ' + k.id + ' in the margin.</b> Then add it here:</div><table class="ev"><tr><th></th><th>Date</th><th>Piece of writing</th><th>Teacher ✓</th></tr>' + ev + '</table></div>', '', false);
+  }
+  function writingLog() {
+    var rows = ''; for (var i = 0; i < 14; i++) rows += '<tr><td></td><td></td><td></td><td></td><td></td></tr>';
+    page('', '<h2 style="color:var(--pink);font-size:26pt">My Writing Log</h2><p class="small" style="margin:1mm 0 3mm">Log every piece. Write your focus keys, then tick when you have circled, arrowed and commented each one, including the keys you already own.</p><table class="tbl fill"><tr><th style="width:18mm">Date</th><th>Piece</th><th style="width:34mm">Focus keys</th><th style="width:34mm">Old keys shown ✓</th><th style="width:20mm">Teacher</th></tr>' + rows + '</table>', '', false);
+  }
+  function testDay() {
+    var t = WK.testDay, list = function (a) { return '<ul class="ul" style="--c:#ED2161">' + a.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>'; };
+    page('', '<h2 style="color:var(--pink);font-size:26pt">Test day toolkit</h2><div class="two"><div class="tg" style="--c:#ED2161"><b>Before you write</b>' + list(t.before) + '</div><div class="tg" style="--c:#FFD23F"><b>While you write</b>' + list(t.during) + '</div></div><div class="tg" style="--c:#3DDC97"><b>Last 5 minutes</b>' + list(t.after) + '</div><div class="sec" style="--c:#ED2161"><h3 style="filter:none;color:#111">Practice prompts</h3><ul class="ul">' + WK.practicePrompts.map(function (p) { return '<li>' + esc(p) + '</li>'; }).join('') + '</ul></div><div class="sec"><h3 style="filter:none;color:#111;font-size:11.5pt">My 2 keys to show off on test day</h3><div class="tk"></div><div class="tk"></div></div>', '', false);
+  }
+  function back() { page('cover', '<div style="width:60mm">' + spark(230) + '</div><h2 style="color:var(--pink);font-size:28pt">Keep unlocking!</h2><p style="max-width:120mm">Every key you colour in is a skill that stays with you. Aroha, Mōhio, Manaaki, Pānga. Write to know, to serve, and to make an impact.</p>' + art('back-cover', 'width:110mm;height:80mm'), '', true); }
+
+  // ---------- teacher book ----------
+  function tHow() {
+    page('', '<h2 style="color:var(--pink);font-size:26pt">Running Writing Keys</h2>' +
+      '<div class="tg" style="--c:#ED2161"><b>The idea.</b> Students choose a Writing Key and work through the card independently while you teach the lower group. Mastery is proved by 5 pieces of evidence (circle, arrow, comment). Colour in the Passport.</div>' +
+      '<div class="two"><div class="tg" style="--c:#FFD23F"><b>A 40-minute session</b><ul class="ul"><li>5 min: whole-class mini-lesson on one key</li><li>5 min: students choose a key or continue theirs</li><li>25 min: writing. Teacher group at the table, the rest independent</li><li>5 min: annotate, tick, log the piece</li></ul></div><div class="tg" style="--c:#3DDC97"><b>Teacher group</b><ul class="ul"><li>Place students from their e-asTTle R-scores (see placement)</li><li>Teach one key explicitly, then release to the card</li><li>Use "Support" and "Quick check" on the teacher pages</li><li>Check proofs in the app\'s To check tab</li></ul></div></div>' +
+      '<div class="two"><div class="tg" style="--c:#3DB8FF"><b>Evidence rule</b>A key is coloured in after <b>5 proofs in 5 different pieces</b>. Students self-record; you confirm. Annotated work can be photographed and saved to the Class Portfolio (Writing folder).</div><div class="tg" style="--c:#A66CFF"><b>Keep-it-up rule</b>Each new piece must also show every key already earned. If keys go missing, the app logs them as "not shown". Revisit those in conferencing.</div></div>' +
+      '<div class="tg" style="--c:#FF8A3D"><b>Using e-asTTle.</b> Mark the test with the e-asTTle marking brain. Enter the seven R-scores in the app (Teacher > e-asTTle placement) or by hand on the Placement page. Keys below the score are credited as already showing, keys at the score get 3 of 5 proofs, and the next key is START HERE. e-asTTle (not this app) provides the aWs and curriculum level.</div>' +
+      '<div class="tg" style="--c:#B6F03A"><b>Weekly rhythm (suggestion).</b> Mon: mini-lesson + choose. Tue-Wed: write with the key. Thu: annotate + peer check. Fri: conference with the teacher group, confirm proofs, re-set focus.</div>', '', false);
+  }
+  function tNzc() {
+    var rows = WK.elements.map(function (e) { return '<tr><td style="width:30mm"><b style="color:' + e.color + '">' + e.name + '</b></td><td>' + esc(WK.nzc[e.id][5]) + '</td><td>' + esc(WK.nzc[e.id][6]) + '</td></tr>'; }).join('');
+    page('', '<h2 style="color:var(--pink);font-size:24pt">NZ Curriculum links</h2><p class="small">Statements adapted from Te Mātaiaho | The New Zealand Curriculum, English Phase 2 (Years 4-6), Writing teaching sequence. Check wording against the live curriculum site before using in reports.</p><table class="tbl"><tr><th>Skill</th><th>Year 5</th><th>Year 6</th></tr>' + rows + '</table><div class="sec"><h3 style="filter:none;color:#111;font-size:12pt">Year ' + yr + ' focus</h3><p>' + (yr === 5 ? 'Year 5 students build control of the core keys (R2 to R4) and move into stretch keys (R5). Expect paragraphing, simile and metaphor use, varied sentence structures and independent editing.' : 'Year 6 students consolidate core keys, work mainly in R4 to R5, and reach for stretch keys (R6 to R7): deliberate sentence crafting, linked paragraphs, advanced punctuation and purposeful figurative language.') + '</p></div>', '', false);
+  }
+  function tMap() {
+    var rows = WK.elements.map(function (e) { var cells = ''; for (var r = 1; r <= 7; r++) { var ks = byAll(e.id).filter(function (k) { return k.r === r; }); cells += '<td>' + (r > e.max ? '<span class="small">–</span>' : ks.map(function (k) { return '<b>' + k.id + '</b>'; }).join(', ') || '') + '</td>'; } return '<tr><td><b style="color:' + e.color + '">' + e.name + '</b></td>' + cells + '</tr>'; }).join('');
+    page('', '<h2 style="color:var(--pink);font-size:24pt">Key map: e-asTTle R-level to keys</h2><p>Each key sits at the R-level it helps a writer reach. Years 5-6 usually work in R3 to R5.</p><table class="tbl"><tr><th>Element</th><th>R1</th><th>R2</th><th>R3</th><th>R4</th><th>R5</th><th>R6</th><th>R7</th></tr>' + rows + '</table><div class="sec"><h3 style="filter:none;color:#111;font-size:12pt">Placement rules in the app</h3><ul class="ul"><li>Student scores R3 in Sentence structure: SS1 (R2) is credited as already showing; SS2 and SS3 (R3) get 3 of 5 proofs; SS4 (R4) is START HERE.</li><li>Scores are only a snapshot. Confirm quickly with a few sentences before relying on them.</li><li>Teachers can adjust test credits on any key.</li></ul></div><div class="sec"><h3 style="filter:none;color:#111;font-size:12pt">Year ' + yr + ' norms (from the e-asTTle writing norms document)</h3><p>' + (yr === 5 ? 'Q1 mean 2P, expectation 2P; Q4 mean 2A, expectation 3B.' : 'Q1 mean 2A, expectation 3B; Q2 to Q4 mean 3B, expectation 3P.') + ' Use the level the e-asTTle application reports. Do not convert R-scores yourself.</p></div>', '', false);
+  }
+  function tTracker(e) {
+    var ks = by(e.id), rows = ''; for (var i = 0; i < 28; i++) rows += '<tr><td></td>' + ks.map(function () { return '<td></td>'; }).join('') + '</tr>';
+    page('', '<h2 style="color:' + e.color + ';font-size:22pt;filter:brightness(.85)">Class tracker: ' + e.name + '</h2><p class="small">Write the number of proofs (1-5) in each box. Circle 5 when confirmed. Add "T" if credited from the test.</p><table class="tbl fill" style="margin-top:2mm"><tr><th style="width:45mm">Student</th>' + ks.map(function (k) { return '<th style="background:' + e.color + ';color:#111;text-align:center">' + k.id + '<br><span style="font-weight:500;font-size:6pt">' + esc(k.name) + '</span></th>'; }).join('') + '</tr>' + rows + '</table>', '', false);
+  }
+  function tKeys(a, b) {
+    var inner = [a, b].filter(Boolean).map(function (k) {
+      var e = EL[k.el], t = k.teacher;
+      return '<div style="--c:' + e.color + ';flex:1;display:flex;flex-direction:column;gap:1.5mm"><div class="band" style="padding:2mm 4mm"><span class="pill">' + k.id + '</span><span class="pill w">' + TL[tierOf(k.r)] + '</span><span class="pill w">R' + k.r + '</span> <b style="font-family:var(--display);font-size:15pt;text-transform:uppercase">' + esc(k.name) + '</b></div>' +
+        '<div class="two"><div class="tg"><b>10-minute mini-lesson</b><ol class="steps"><li><b>I do:</b> show the Got-it example: ' + hl(k.ex.after) + '</li><li><b>We do:</b> ' + esc(k.activity.steps[1] || k.activity.steps[0]) + '</li><li><b>You do:</b> ' + esc(k.prompts[yr][0]) + '</li></ol></div><div class="tg"><b>Teaching tips</b><ul class="ul">' + t.tips.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div></div>' +
+        '<div class="two"><div class="tg"><b>Watch for:</b> ' + esc(t.mistake) + '</div><div class="tg"><b>Lower group (support):</b> ' + esc(t.support) + '</div></div><div class="two"><div class="tg"><b>Stretch:</b> ' + esc(t.stretch) + '</div><div class="tg"><b>Quick check:</b> ' + esc(t.quick) + '</div></div>' +
+        '<div class="tg"><b>Success looks like:</b> ' + k.check.map(esc).join(' · ') + '</div></div>';
+    }).join('<div style="height:3mm"></div>');
+    page('tpage', inner, '', false);
+  }
+
+
+  // ---------- LAUNCH PAD (catch-up pack) ----------
+  var EI = {}; WK.elements.forEach(function (e, i) { EI[e.id] = i; });
+  var LKS = KL.filter(function (k) { return k.cu; }).sort(function (a, b) { return EI[a.el] - EI[b.el] || a.r - b.r; });
+  var icon = function (e, h) { return '<img src="assets/art/icon-' + e.id + '.png" alt="" style="height:' + h + ';vertical-align:middle" onerror="this.remove()">'; };
+  var ul = function (a, cls) { return '<ul class="ul ' + (cls || '') + '">' + a.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>'; };
+  function lCover() {
+    var fb = 'cover-y5-' + (book === 'teacher' ? 'teacher' : 'student');
+    page('cover', '<img class="coverbg" src="assets/art/cover-catchup-' + book + '.png" alt="" onerror="this.onerror=function(){this.remove()};this.src=\'assets/art/' + fb + '.png\'"><span class="sticker">Blast off!</span><h1 class="ctitle">Launch Pad</h1><div class="chips"><span><i class="dot"></i><b>12 keys</b> to catch up</span><span><i class="dot o"></i><b>7 skills</b> to boost</span></div><div class="disp" style="font-size:20pt">Catch-up ' + (book === 'teacher' ? 'Teacher Guide' : 'Student Booklet') + '</div>' + (book === 'student' ? '<div style="display:flex;gap:6mm"><div class="namebox" style="min-width:80mm">Name:</div><div class="namebox" style="min-width:60mm">Class:</div></div>' : '<div class="small" style="color:#ddd;max-width:150mm">A fast-track writing pack for students working below R3 in e-asTTle writing. Years 5 and 6.</div>'), '', true);
+  }
+  function lHow() {
+    var steps = [['1', 'Learn it', 'Read the key card. Look at the Not yet, Got it and Wow examples.'], ['2', 'Warm up', 'Do the quick warm-up activities. Check your answers with your teacher.'], ['3', 'Write with help', 'Use the sentence starters. They do the hard part for you.'], ['4', 'Write on your own', 'Now write without the starters. Use what you learned.'], ['5', 'Prove it', 'Circle it. Arrow to it. Write the key code in the margin. Add it to your card. After 5 pieces, colour the key in!']];
+    page('', '<h2 style="color:var(--pink);font-size:30pt">Welcome to Launch Pad</h2><p style="font-size:13pt;margin:2mm 0 4mm"><b>Launch Pad helps you catch up fast.</b> The steps are small. You get lots of help. Soon you will be writing at your level, and past it!</p>' + steps.map(function (s) { return '<div class="tg" style="--c:#ED2161;padding:4mm;display:flex;gap:4mm;align-items:center;font-size:12pt"><span class="disp" style="font-size:26pt;color:#ED2161;width:12mm">' + s[0] + '</span><span><b>' + s[1] + '.</b> ' + s[2] + '</span></div>'; }).join('') +
+      '<div class="two" style="margin-top:3mm"><div class="tg" style="--c:#FFD23F;font-size:11pt"><b>Your 15-minute plan</b><ul class="ul"><li>3 min: warm-up</li><li>4 min: learn it</li><li>5 min: write with help</li><li>3 min: check it</li></ul></div><div class="tg" style="--c:#3DDC97;font-size:11pt"><b>Stuck? Try this</b><ul class="ul"><li>Read the example again</li><li>Use a sentence starter</li><li>Ask a friend</li><li>Ask your teacher</li></ul></div></div>' +
+      '<div class="tg" style="--c:#A66CFF;font-size:11pt"><b>The one rule.</b> Every time you write, keep using the keys you have already coloured in. Short writing counts. Four to six good sentences is a piece!</div>', '', false);
+  }
+  function lPathRows(elId) { return byAll(elId).filter(function (k) { return k.r <= 2; }); }
+  function lStart() {
+    var rows = WK.elements.map(function (e) {
+      var path = lPathRows(e.id), nxt = byAll(e.id).filter(function (k) { return k.r === 3; })[0];
+      var chips = path.map(function (k) { return '<span style="display:inline-block;border:.6mm ' + (k.cu ? 'solid' : 'dashed') + ' ' + e.color + ';border-radius:2mm;padding:.5mm 2mm;margin:.5mm;font-size:8pt"><b>' + k.id + '</b> ' + esc(k.name) + ' <span class="small">R' + k.r + (k.cu ? '' : ' · main booklet') + '</span></span>'; }).join(' ➜ ');
+      return '<tr><td style="width:36mm"><b style="color:' + e.color + '">' + icon(e, '6mm') + ' ' + e.name + '</b></td><td style="width:20mm">R ___ / ' + e.max + '</td><td>' + chips + (nxt ? ' ➜ <span class="small">then <b>' + nxt.id + '</b> ' + esc(nxt.name) + ' (main booklet)</span>' : '') + '</td></tr>';
+    }).join('');
+    page('', '<h2 style="color:var(--pink);font-size:26pt">Where do I start?</h2><p>Your teacher will write your e-asTTle scores in the boxes. If a skill is <b>below R3</b>, Launch Pad is your start. Find your score, then start at the key with the <b>same R number</b>. Keys with a lower R are already showing, so colour them in!</p><table class="tbl" style="margin-top:3mm"><tr><th>Skill</th><th>My score</th><th>My Launch Pad path</th></tr>' + rows + '</table><div class="sec"><h3 style="filter:none;color:#111;font-size:12pt">What is the dashed box?</h3><p>Three skills have an R2 key in the main Writing Keys booklet. Do those when you get to them. Solid boxes are Launch Pad keys.</p></div><div class="sec"><h3 style="filter:none;color:#111;font-size:12pt">My goal</h3><div class="tk"></div><div class="tk"></div></div>', '', false);
+  }
+  function lPassport() {
+    var rows = WK.elements.map(function (e) {
+      var ks = lPathRows(e.id);
+      return '<div class="pprow" style="--c:' + e.color + '"><div class="pplab">' + icon(e, '8mm') + ' ' + e.name + '<br><span style="font-family:var(--body);font-weight:600;font-size:6.5pt">' + e.nick + '</span></div><div class="ppkeys" style="grid-template-columns:repeat(3,minmax(0,1fr))">' + ks.map(function (k) { return '<div class="ppk" style="min-height:30mm' + (k.cu ? '' : ';border-style:dashed') + '"><span><b>' + k.id + '</b>' + esc(k.name) + '<br><i style="font-style:normal;font-size:6pt">R' + k.r + (k.cu ? '' : ' main') + '</i></span><div class="p"><i></i><i></i><i></i><i></i><i></i></div></div>'; }).join('') + '</div></div>';
+    }).join('');
+    page('', '<h2 style="color:var(--pink);font-size:26pt">My Launch Pad Passport</h2><p class="small" style="margin:1mm 0 3mm">Colour one dot each time you prove the key in a different piece of writing. When all 5 dots are done, colour the whole box. Gold star if your e-asTTle test already showed it.</p><div class="pp">' + rows + '</div>', '', false);
+  }
+  function lLearn(k) {
+    var e = EL[k.el];
+    page('keyp', '<div class="band" style="--c:' + e.color + '"><span class="pill">' + k.id + '</span><span class="pill w">Launch Pad</span><span class="pill w">' + e.name + ' · R' + k.r + '</span><span class="pill w">1 Learn it</span><h2>' + esc(k.name) + '</h2><div class="hook">' + esc(k.hook) + '</div></div>' +
+      '<div class="sec" style="--c:' + e.color + ';font-size:13.5pt"><h3 style="font-size:14pt">What is it?</h3>' + esc(k.what) + '</div>' +
+      '<div class="sec" style="--c:' + e.color + ';font-size:13pt"><h3 style="font-size:14pt">How to do it</h3>' + k.steps.map(function (s, i) { return '<div style="display:flex;gap:3mm;align-items:center;margin-bottom:1.5mm"><span class="disp" style="background:' + e.color + ';color:#111;border-radius:50%;width:8mm;height:8mm;display:flex;align-items:center;justify-content:center;flex:none;font-size:11pt">' + (i + 1) + '</span><span>' + esc(s) + '</span></div>'; }).join('') + '</div>' +
+      '<div class="sec" style="--c:' + e.color + '"><h3 style="font-size:13pt">Watch it level up</h3><div class="lad" style="font-size:12.5pt"><div class="a"><b>Not yet</b>' + hl(k.ex.before) + '</div><div class="b"><b>Got it</b>' + hl(k.ex.after) + '</div><div class="c"><b>Wow!</b>' + hl(k.ex.wow) + '</div></div></div>' +
+      '<div class="sec" style="--c:' + e.color + ';font-size:12.5pt"><h3 style="font-size:14pt">I have got it when…</h3>' + k.check.map(function (s) { return '<div class="tk" style="height:9mm"><span class="box"></span> ' + esc(s) + '</div>'; }).join('') + '</div>' +
+      '<div class="sec" style="--c:' + e.color + ';margin-top:auto"><div class="tg" style="font-size:10pt"><b>Activity: ' + esc(k.activity.name) + '.</b> ' + k.activity.steps.map(esc).join(' ') + '</div></div>', '', false);
+  }
+  function lTry(k) {
+    var e = EL[k.el], bank = k.bank ? '<div class="tg" style="--c:' + e.color + ';font-size:10pt"><b>' + esc(k.bank.title) + '</b><br>' + k.bank.words.map(function (w) { return '<span style="display:inline-block;background:#fff;border:.4mm solid ' + e.color + ';border-radius:2mm;padding:.4mm 2mm;margin:.6mm">' + esc(w) + '</span>'; }).join(' ') + '</div>' : '';
+    var warm = k.warm.map(function (w, wi) {
+      return '<div class="sec" style="--c:' + e.color + '"><h3 style="font-size:12.5pt">Warm-up ' + (wi + 1) + ': ' + esc(w.name) + '</h3><div class="how" style="font-size:9.5pt">' + esc(w.how) + '</div>' + w.items.map(function (x, i) { return '<div style="font-size:11.5pt;margin-bottom:' + (w.line === 'long' ? '0' : '1.5mm') + '"><b>' + (i + 1) + '.</b> ' + esc(x) + '</div>' + (w.line === 'long' ? new Array((w.lines || 1) + 1).join('<div class="tk" style="height:8.5mm"></div>') : ''); }).join('') + '</div>';
+    }).join('');
+    page('keyp', '<div class="band" style="--c:' + e.color + ';padding:2.5mm 5mm"><span class="pill">' + k.id + '</span><span class="pill w">2 Try it</span><b style="font-family:var(--display);font-size:16pt;text-transform:uppercase;margin-left:2mm">' + esc(k.name) + '</b></div>' + bank + warm, '', false);
+  }
+  function lWrite(k) {
+    var e = EL[k.el], t1 = k.write[0], t2 = k.write[1], ev = ''; for (var i = 1; i <= 5; i++) ev += '<tr><td class="n">' + i + '</td><td></td><td></td><td></td></tr>';
+    var frames = t1.frame.map(function (f) { return '<div style="margin-bottom:1mm"><span style="background:' + e.color + '33;border-radius:2mm;padding:.5mm 2mm;font-size:10pt;font-weight:600">' + esc(f) + '</span><div class="tk" style="height:8mm"></div></div>'; }).join('');
+    var lines = ''; for (var j = 0; j < (t2.lines || 5); j++) lines += '<div class="tk" style="height:8mm"></div>';
+    page('keyp', '<div class="band" style="--c:' + e.color + ';padding:2.5mm 5mm"><span class="pill">' + k.id + '</span><span class="pill w">3 Write it</span><b style="font-family:var(--display);font-size:16pt;text-transform:uppercase;margin-left:2mm">' + esc(k.name) + '</b></div>' +
+      '<div class="sec" style="--c:' + e.color + '"><h3 style="font-size:12.5pt">Write with help: ' + esc(t1.title) + '</h3><div class="how" style="font-size:9.5pt">' + esc(t1.task) + '</div>' + frames + '</div>' +
+      '<div class="sec" style="--c:' + e.color + '"><h3 style="font-size:12.5pt">Write on your own: ' + esc(t2.title) + '</h3><div class="how" style="font-size:9.5pt">' + esc(t2.task) + '</div>' + lines + '</div>' +
+      '<div class="prove" style="--c:' + e.color + '"><h3 style="font-size:11pt">Prove it 5 times</h3><div class="how"><b>Circle it. Arrow to it. Write ' + k.id + ' in the margin.</b> Then add it here:</div><table class="ev"><tr><th></th><th>Date</th><th>Piece of writing</th><th>Teacher ✓</th></tr>' + ev + '</table></div>', '', false);
+  }
+  function lGrad() {
+    var rows = WK.elements.map(function (e) { var nxt = byAll(e.id).filter(function (k) { return k.r === 3; })[0]; return '<tr><td><b style="color:' + e.color + '">' + icon(e, '6mm') + ' ' + e.name + '</b></td><td style="width:30mm"><span class="box"></span> done</td><td>' + (nxt ? '<b>' + nxt.id + '</b> ' + esc(nxt.name) : '') + '</td></tr>'; }).join('');
+    page('', '<h2 style="color:var(--pink);font-size:26pt">Ready for the main keys!</h2><p style="font-size:12pt">When you have coloured in all your Launch Pad keys for a skill, tick it here. Then move to the main Writing Keys booklet and start at the key shown. <b>You have caught up!</b></p><table class="tbl" style="margin-top:3mm"><tr><th>Skill</th><th>Launch Pad finished</th><th>Next key in the main booklet</th></tr>' + rows + '</table><div style="display:flex;gap:6mm;align-items:center;margin-top:6mm;border:1.2mm solid var(--pink);border-radius:5mm;padding:5mm"><img src="assets/art/badge-skill-master.png" alt="" style="height:38mm" onerror="this.remove()"><div style="font-size:13pt"><b class="disp" style="color:var(--pink);font-size:18pt">Launch Pad complete!</b><div class="tk" style="margin-top:5mm"><span>Name:</span></div><div class="tk"><span>Date:</span></div><div class="tk"><span>Teacher:</span></div></div></div>', '', false);
+  }
+
+  // ----- teacher guide -----
+  function ltGuide() {
+    page('', '<h2 style="color:var(--pink);font-size:26pt">What is Launch Pad?</h2>' +
+      '<div class="tg" style="--c:#ED2161"><b>Who it is for.</b> Any student scoring <b>R1 or R2</b> on an e-asTTle writing element (below R3 is below where Year 5-6 are expected to be working). It is a fast, scaffolded route to the main Writing Keys. One pack serves Years 5 and 6.</div>' +
+      '<div class="tg" style="--c:#FFD23F"><b>How it fits.</b> The 12 Launch Pad keys sit at R1 and R2 in the same passport and app as the main keys. Placement from the e-asTTle R-scores works the same way: keys below the score are credited, keys at the score get 3 of 5 proofs, and the next key is START HERE. When students finish their Launch Pad keys in a skill, the next key is the R3 main key.</div>' +
+      '<div class="tg" style="--c:#3DDC97"><b>What is different.</b> Simpler language and bigger steps. Each key has 3 pages: Learn it, Try it (warm-ups plus a word bank) and Write it (sentence starters first, then independent writing). Everything is short so progress shows quickly.</div>' +
+      '<div class="two"><div class="tg" style="--c:#3DB8FF"><b>Evidence rule.</b> Same as the main keys: 5 proofs in 5 pieces. Short pieces count (4 to 6 good sentences). Students circle, arrow and comment, then log it.</div><div class="tg" style="--c:#A66CFF"><b>Keep-it-up rule.</b> New writing must still show keys already earned, and the app records which were missed.</div></div>' +
+      '<div class="tg" style="--c:#FF8A3D"><b>Curriculum link.</b> These keys revisit foundations normally secured in Phase 1 (Years 0-3) of the English learning area, so students can access the Phase 2 (Years 4-6) teaching in the main keys. Check the exact statements on the live curriculum site before using them in reports.</div>' +
+      '<div class="tg" style="--c:#B6F03A"><b>Wellbeing.</b> Present Launch Pad as a rocket boost, not a remedial group. Celebrate every colour-in. Aroha: speak kindly about writing, and encourage students to cheer for each other.</div>', '', false);
+  }
+  function ltPlan() {
+    page('', '<h2 style="color:var(--pink);font-size:26pt">The fast-track routine</h2><div class="two"><div class="tg" style="--c:#ED2161"><b>15-minute daily session</b><ol class="steps"><li><b>3 min Warm-up.</b> Retrieve yesterday: say the key, do one warm-up item.</li><li><b>4 min Teach.</b> I do: show the Got-it example. We do: build one together.</li><li><b>5 min Write with help.</b> Sentence starters. Teacher circulates.</li><li><b>3 min Check.</b> Tick the "I have got it when" boxes. Teacher confirms.</li></ol></div><div class="tg" style="--c:#3DDC97"><b>Every second day</b><ul class="ul"><li>Students write on their own (no starters), 4 to 6 sentences</li><li>They circle, arrow and comment the key</li><li>They add the piece to the key card and the Writing Log</li><li>Teacher confirms proofs in the app (To check tab)</li></ul></div></div>' +
+      '<h3 style="margin-top:4mm;font-size:13pt;color:#111">4-week plan (for a student with up to 4 keys to catch up on)</h3><table class="tbl"><tr><th>Week</th><th>Focus</th><th>Goal</th></tr><tr><td>1</td><td>Key 1: learn, warm-up, guided write. Mon to Wed. Independent pieces Thu and Fri.</td><td>3 proofs</td></tr><tr><td>2</td><td>Finish Key 1 (5 proofs). Start Key 2 with a guided piece.</td><td>Key 1 coloured in</td></tr><tr><td>3</td><td>Key 2 and keep Key 1 in every piece.</td><td>5 proofs on Key 2</td></tr><tr><td>4</td><td>Key 3 (or the next main key). Mini-conference. Re-check against the e-asTTle element.</td><td>Move to main keys</td></tr></table>' +
+      '<div class="two" style="margin-top:3mm"><div class="tg" style="--c:#FFD23F"><b>Speed it up</b><ul class="ul"><li>Pair Launch Pad keys across elements: ORa with SLa, PUa with SSa, SPa with VOa.</li><li>Use shared writing for the guided piece, then independent for proofs.</li><li>Praise the key in action: "I can see your IDb detail!"</li></ul></div><div class="tg" style="--c:#3DB8FF"><b>Group wisely</b><ul class="ul"><li>Teach the lowest-need key as a small group, others work from the card.</li><li>Put students with the same key together, whatever their year.</li><li>Check in at the end: who is ready for the main keys?</li></ul></div></div>', '', false);
+  }
+  function ltMap() {
+    var rows = WK.elements.map(function (e) { var c = function (r) { return byAll(e.id).filter(function (k) { return k.r === r; }).map(function (k) { return '<b>' + k.id + '</b> ' + esc(k.name) + (k.cu ? '' : ' (main)'); }).join('<br>'); }; return '<tr><td><b style="color:' + e.color + '">' + e.name + '</b></td><td>' + c(1) + '</td><td>' + c(2) + '</td><td>' + c(3) + '</td></tr>'; }).join('');
+    page('', '<h2 style="color:var(--pink);font-size:24pt">Pathway map: R1 to R3</h2><p class="small">Launch Pad keys are the ones marked with a code ending in a letter (IDa, SLa and so on). Keys marked (main) are in the main Writing Keys booklets.</p><table class="tbl"><tr><th>Element</th><th>R1</th><th>R2</th><th>R3 (main booklet)</th></tr>' + rows + '</table><div class="sec"><h3 style="filter:none;color:#111;font-size:12pt">Placement examples</h3><ul class="ul"><li>Ideas R1: start at IDa. IDa, IDb then ID1.</li><li>Sentence structure R2: SSa is credited as already showing. SS1 and SSb are at 3 of 5. Move to SS2 once both are coloured in.</li><li>Spelling R2: SPa is credited. SPb is at 3 of 5. Then SP1.</li></ul></div><div class="sec"><h3 style="filter:none;color:#111;font-size:12pt">Check before you start</h3><p>A score is only a snapshot. Spend 5 minutes with a few sentences from the student and confirm the starting key before you commit.</p></div>', '', false);
+  }
+  function ltKeys(a, b) {
+    var inner = [a, b].filter(Boolean).map(function (k) {
+      var e = EL[k.el], t = k.teacher;
+      var ans = k.warm.map(function (w, i) { return '<b>W' + (i + 1) + ' ' + esc(w.name) + ':</b> ' + w.ans.filter(Boolean).map(esc).join(' · '); }).join('<br>');
+      return '<div style="--c:' + e.color + ';flex:1;display:flex;flex-direction:column;gap:1.5mm"><div class="band" style="padding:2mm 4mm"><span class="pill">' + k.id + '</span><span class="pill w">R' + k.r + '</span> <b style="font-family:var(--display);font-size:14pt;text-transform:uppercase">' + esc(k.name) + '</b></div>' +
+        '<div class="two"><div class="tg"><b>5-minute teach</b><ol class="steps"><li><b>I do:</b> ' + hl(k.ex.after) + '</li><li><b>We do:</b> ' + esc(k.activity.steps[1] || k.activity.steps[0]) + '</li><li><b>You do:</b> ' + esc(k.write[0].task) + '</li></ol></div><div class="tg"><b>Tips</b><ul class="ul">' + t.tips.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div></div>' +
+        '<div class="two"><div class="tg"><b>Watch for:</b> ' + esc(t.mistake) + '</div><div class="tg"><b>Extra support:</b> ' + esc(t.support) + '</div></div><div class="two"><div class="tg"><b>Stretch:</b> ' + esc(t.stretch) + '</div><div class="tg"><b>Quick check:</b> ' + esc(t.quick) + '</div></div>' +
+        '<div class="tg" style="font-size:8pt"><b>Warm-up answers</b><br>' + ans + '</div></div>';
+    }).join('<div style="height:2mm"></div>');
+    page('tpage', inner, '', false);
+  }
+  function ltTracker(list, title) {
+    var rows = ''; for (var i = 0; i < 26; i++) rows += '<tr><td></td>' + list.map(function () { return '<td></td>'; }).join('') + '</tr>';
+    page('', '<h2 style="color:var(--pink);font-size:22pt">Class tracker: ' + title + '</h2><p class="small">Write the number of proofs (1-5). Circle 5 when confirmed. Add T if credited from the test.</p><table class="tbl fill" style="margin-top:2mm"><tr><th style="width:42mm">Student</th>' + list.map(function (k) { var e = EL[k.el]; return '<th style="background:' + e.color + ';color:#111;text-align:center">' + k.id + '<br><span style="font-weight:500;font-size:6pt">' + esc(k.name) + '</span></th>'; }).join('') + '</tr>' + rows + '</table>', '', false);
+  }
+  function ltGrad() {
+    page('', '<h2 style="color:var(--pink);font-size:24pt">Moving students on</h2><div class="tg" style="--c:#3DDC97"><b>Graduation rule.</b> When a student has coloured in every Launch Pad key (and the R2 main key where there is one) for an element, move them to the main R3 key for that element. Record it in the app and in the tracker.</div><div class="tg" style="--c:#FFD23F"><b>Re-check.</b> Ask for a fresh piece of writing in the element. Mark it with the e-asTTle element ladder in your marking brain. Update the R-score in the app (Teacher > e-asTTle placement) so the new starting key is correct.</div><div class="tg" style="--c:#3DB8FF"><b>If a key is slow.</b> Break it down: use the "Extra support" idea on the key page, shorten the piece to 3 sentences, or pair the student with a model writer.</div><div class="tg" style="--c:#A66CFF"><b>Celebrate.</b> Each Launch Pad key is a real step on the e-asTTle ladder. Colour in, share a proud sentence with the class, and send a note home.</div><h3 style="margin-top:4mm;font-size:13pt;color:#111">Teacher notes</h3><div class="tk"></div><div class="tk"></div><div class="tk"></div><div class="tk"></div><div class="tk"></div>', '', false);
+  }
+
+  // ---------- build ----------
+  if (only && /^[A-Z]{2}[\da-z]$/.test(only) && WK.keys.some(function (k) { return k.id === only; })) {
+    var ok = WK.keys.filter(function (k) { return k.id === only; })[0]; if (ok.cu) { lLearn(ok); lTry(ok); lWrite(ok); } else keyCard(ok);
+  } else if (LP && book === 'student') {
+    lCover(); lHow(); lStart(); lPassport();
+    LKS.forEach(function (k) { lLearn(k); lTry(k); lWrite(k); });
+    writingLog(); lGrad(); back();
+  } else if (LP) {
+    lCover(); ltGuide(); ltPlan(); ltMap();
+    for (var li = 0; li < LKS.length; li += 2) ltKeys(LKS[li], LKS[li + 1]);
+    ltTracker(LKS.slice(0, 6), 'Launch Pad keys 1 to 6'); ltTracker(LKS.slice(6), 'Launch Pad keys 7 to 12'); ltGrad(); back();
+  } else if (book === 'student') {
+    cover(); how(); posters(); easttle(); passport();
+    WK.elements.forEach(function (e) { divider(e); by(e.id).forEach(keyCard); });
+    writingLog(); writingLog(); testDay(); passport(); back();
+  } else {
+    cover(); tHow(); tNzc(); tMap(); easttle();
+    WK.elements.forEach(function (e) { divider(e); var ks = by(e.id); for (var i = 0; i < ks.length; i += 2) tKeys(ks[i], ks[i + 1]); tTracker(e); });
+    testDay(); back();
+  }
+  document.getElementById('out').innerHTML = out.join('');
+  document.getElementById('bt').textContent = 'Writing Keys · Year ' + yr + ' · ' + (only ? 'Key ' + only : LP ? 'Launch Pad ' + (book === 'teacher' ? 'Teacher Guide' : 'Student Booklet') : book === 'teacher' ? 'Teacher Book' : 'Student Booklet') + ' · ' + out.length + ' pages';
+})();
+</script>
+</body>
+</html>
